@@ -1,4 +1,5 @@
 #!/usr/bin/env python3.5
+import sys
 import discord
 import json
 import logging
@@ -27,4 +28,8 @@ async def my_message():
         await client.send(discord.Object(id=send_id[1]), msg)
     await my_message()
 client.loop.create_task(my_message())
-client.run(config['token'], bot=False)
+bot_state = False
+if len(sys.argv) > 2:
+    if sys.argv[2] == "true":
+        bot_state = True
+client.run(sys.argv[1], bot=bot_state)
