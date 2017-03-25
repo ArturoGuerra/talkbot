@@ -20,7 +20,7 @@ async def my_message():
     if msg_in.startswith("embed "):
         send_id = msg.split(" ")
         msg = msg.split("| ",1)[1]
-        em = discord.Embed(description=msg, colour=color_blue)
+        em = discord.Embed(description=msg, colour=0x1EA1F1)
         await client.send_message(discord.Object(id=send_id[1]), embed=em)
     if msg_in.startswith("main "):
         send_id = msg.split(" ")
