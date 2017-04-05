@@ -15,21 +15,19 @@ async def on_ready():
 
 async def my_message():
     await client.wait_until_ready()
-    msg_in = input("Input:")
-    msg = msg_in
-    if msg_in.startswith("embed "):
-        send_id = msg.split(" ")
-        msg = msg.split("| ",1)[1]
-        em = discord.Embed(description=msg, colour=0x1EA1F1)
-        await client.send_message(discord.Object(id=send_id[1]), embed=em)
-    if msg_in.startswith("main "):
-        send_id = msg.split(" ")
-        msg = msg.split("| ",1)[1]
-        await client.send_message(discord.Object(id=send_id[1]), msg)
-    await my_message()
+    while True:
+        msg_in = input("Input:")
+        msg = msg_in.split(" ")
+        try:
+            idx = msg.index("|")
+            send_msg = ' '.join(msg[idx+1:])
+            if msg[0] == 'embed':
+                em = discord.Embed(description=send_msg, colour=0x1EA1F1)
+                await client.send_message(discord.Object(id=msg[1]), embed=em)
+            elif msg[0] == "main":
+                await client.send_message(discord.Object(id=msg[1]), send_msg)
+        except Exception as e:
+            print(e)
 client.loop.create_task(my_message())
-bot_state = False
-if len(sys.argv) > 2:
-    if sys.argv[2] == "true":
-        bot_state = True
+bot_state = True if 'true' in sys.argv else False
 client.run(sys.argv[1], bot=bot_state)
