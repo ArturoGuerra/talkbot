@@ -25,7 +25,7 @@ async def my_message():
     if msg_in.startswith("main "):
         send_id = msg.split(" ")
         msg = msg.split("| ",1)[1]
-        await client.send(discord.Object(id=send_id[1]), msg)
+        await client.send_message(discord.Object(id=send_id[1]), msg)
     await my_message()
 client.loop.create_task(my_message())
 bot_state = False
